@@ -1,3 +1,5 @@
+import math
+
 # Обувная фабрика собирается начать выпуск элитной модели ботинок.
 # Дырочки для шнуровки будут расположены в два ряда, расстояние между рядами равно a,
 # а расстояние между дырочками в ряду b. Количество дырочек в каждом ряду равно N.
@@ -8,16 +10,15 @@
 #
 # Программа получает на вход четыре натуральных числа a, b, l и N — именно в таком порядке
 # — и должна вывести одно число — искомую длину шнурка.
-import math
-
 
 def lab1_task6():
-    row_distance = int(input())
-    column_distance = int(input())
-    free_length = int(input())
-    nodes_amount = int(input())
+    row_distance = int(input('a: '))
+    column_distance = int(input('b: '))
+    free_length = int(input('l: '))
+    nodes_amount = int(input('n: '))
     result = 2 * free_length + (2 * nodes_amount - 1) * row_distance + 2 * (nodes_amount - 1) * column_distance
     print(f'Result: {result}')
+
 
 
 # Минимум из двух чисел. Даны два целых числа. Выведите
@@ -26,7 +27,10 @@ def lab1_task6():
 def lab2_task1():
     a = int(input("a: "))
     b = int(input("b: "))
-    print(min(a, b))
+    if a > b:
+        print(a)
+    else:
+        print(b)
 
 
 # Улитка ползет по вертикальному шесту высотой h метров,
@@ -140,6 +144,7 @@ def lab9_task1():
                 max_element = matrix[row_index][column_index]
                 max_element_row, max_element_column = row_index, column_index
 
-    print(f'Row: {max_element_row}, Column: {max_element_column}')
+    print(f'Row: {max_element_row + 1}, Column: {max_element_column + 1}')
 
 
+lab9_task1()
