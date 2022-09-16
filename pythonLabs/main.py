@@ -147,4 +147,115 @@ def lab9_task1():
     print(f'Row: {max_element_row + 1}, Column: {max_element_column + 1}')
 
 
-lab9_task1()
+# Даны два списка чисел. Посчитайте, сколько чисел
+# содержится одновременно как в первом списке, так и во втором.
+
+def lab10_task2():
+    print(len(set(set(input().split()) & set(input().split()))))
+
+
+# Политическая жизнь одной страны очень оживленная. В стране действует K политических
+# партий, каждая из которых регулярно объявляет национальную забастовку.
+# Дни, когда хотя бы одна из партий объявляет забастовку, при условии,
+# что это не суббота или воскресенье (когда и так никто не работает), наносят большой ущерб экономике страны.
+# i-я партия объявляет забастовки строго каждые b_i дней, начиная с дня с номером a_i.
+# То есть i-я партия объявляет забастовки в дни a_i, a_i + b_i, a_i + 2 * b_i и т.д.
+# Если в какой-то день несколько партий объявляет забастовку, то это считается одной общенациональной забастовкой.
+# В календаре страны N дней, пронумерованных, начиная с единицы.
+# Первый день года является понедельником, шестой и седьмой дни года — выходные, неделя состоит из семи дней.
+# В первой строке даны числа N и K. Далее идет K строк, описывающие
+# графики проведения забастовок. i-я строка содержит числа a_i и b_i.
+# Вам нужно определить число забастовок, произошедших в этой стране в течении года.
+
+def lab10_task12():
+    days = int(input('N: '))
+    polit_parties = int(input('K: '))
+    # without Saturday and Sunday
+    work_days = set([day for day in range(days) if day % 7 < 5])
+    no_actions = set(work_days)
+    for party in range(polit_parties):
+        print(f'Party: {party + 1}')
+        a = int(input('a: '))
+        b = int(input('b: '))
+        # b + 1 to count the first day of action
+        max_actions_amount = (days - a) // b + 1
+        no_actions -= {a + b * i for i in range(max_actions_amount)}
+    print(len(work_days) - len(no_actions))
+
+# Родословная: предки и потомки. Даны два элемента в дереве.
+# Определите, является ли один из них потомком другого.
+# Во входных данных записано дерево в том же формате, что и в
+# предыдущей задаче Далее идет число запросов . В каждой из следующих
+# строк, содержатся имена двух элементов дерева.
+# Для каждого такого запроса выведите одно из трех чисел: 1, если первый
+# элемент является предком второго, 2, если второй является предком первого
+# или 0, если ни один из них не является предком другого.
+# 9
+# Alexei Peter_I
+# Anna Peter_I
+# Elizabeth Peter_I
+# Peter_II Alexei
+# Peter_III Anna
+# Paul_I Peter_III
+# Alexander_I Paul_I
+# Nicholaus_I Paul_I
+# 3
+# Anna Nicholaus_I
+# Peter_II Peter_I
+# Alexei Paul_I
+
+
+def is_ancestor(human, possible_ancestor, tree):
+    if human == possible_ancestor:
+        return True
+    while human in tree:
+        human = tree[human]
+        if human == possible_ancestor:
+            return True
+    return False
+
+
+def lab11_task12():
+    tree = {}
+    n = int(input('N: '))
+    for i in range(n - 1):
+        child, parent = input().split()
+        tree[child] = parent
+    print(tree)
+    for i in range(int(input('K: '))):
+        first, second = input().split()
+        if is_ancestor(second, first, tree):
+            print(1)
+        elif is_ancestor(first, second, tree):
+            print(2)
+        else:
+            print(0)
+
+
+# Самое длинное слово в файле. В данном задании вы должны
+# написать программу, которая будет находить самое длинное слово в файле. В
+# качестве результата программа должна выводить на экран длину самого
+# длинного слова и все слова такой длины. Для простоты принимайте за
+# значимые буквы любые непробельные символы, включая цифры и знаки
+# препинания.
+# Result:
+# ['один', 'два', 'самое_длинное_слово', 'не_самое', 'почтиСамое_длинное']
+# Максимальная длина слова: 19
+# Слова: ['самое_длинное_слово']
+
+def lab12_task5():
+    words = open("Lab12SampleText.txt", "r").read().split()
+    print(words)
+    max_length_words = []
+    max_length = 0
+    for word in words:
+        if len(word) > max_length:
+            max_length = len(word)
+            max_length_words = [word]
+        elif len(word) == max_length:
+            max_length_words.append(word)
+    print(f'Максимальная длина слова: {max_length}')
+    print(f'Слова: {max_length_words}')
+
+
+lab12_task5()
