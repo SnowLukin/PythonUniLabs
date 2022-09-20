@@ -1,4 +1,6 @@
 import math
+import copy
+from itertools import combinations
 
 # Обувная фабрика собирается начать выпуск элитной модели ботинок.
 # Дырочки для шнуровки будут расположены в два ряда, расстояние между рядами равно a,
@@ -270,6 +272,33 @@ def lab12_task5():
 # (1 ≤ ≤ 100000). Каждая из следующих строк содержит два натуральных
 # числа, не превышающих 10000
 
+def get_min_combinations(pair_difference, residual):
+    # Находим все элементы которые при делении на 7 дают в остатке значение равное residual
+    sub_pair_difference = [element for element in pair_difference if element % 7 == residual]
+    # Находим такое число которое подходит под условие но не является суммой
+    # (те возможно не является минимальным решением)
+    sub = min(sub_pair_difference)
+    min_sum = 0
+    flag = True
+    # На этом этапе отфильтруем массив так чтобы уменьшить время поиска нужного решения
+    print(f'Before: {len(pair_difference)}')
+    pair_difference = [element for element in pair_difference if element <= sub]
+    print(f'After: {len(pair_difference)}')
+    for n in range(1, len(pair_difference) + 1):
+        sub_combinations = [list(ele) for ele in list(combinations(pair_difference, n))]
+        for combination in sub_combinations:
+            summary = sum(combination)
+            if summary % 7 == residual:
+                if flag:
+                    min_sum = summary
+                    flag = False
+                else:
+                    if summary < min_sum:
+                        min_sum = summary
+    print(min_sum)
+    return min_sum
+
+
 def individual_task_1(file_number):
     file_name = "Individual_Task_1_0.txt" if file_number == 0 \
         else "Individual_Task_1_a.txt" if file_number == 1 \
@@ -295,18 +324,19 @@ def individual_task_1(file_number):
         # Если остаток от деления на 7 минимальной суммы будет больше, чем от максимальной
         # То чтобы прировнять остатки в будущем вычтем из 7 разность остатков.
         residual = 7 - residual if max_sum % 7 < min_sum % 7 else residual
-        # Фильтруем массив
-        # Оставляем только элементы, остаток от деления на 7 которых будет равен разнице остатков
-        pair_difference = [element for element in pair_difference if element % 7 == residual]
+        # Находим минимальную возможную сумму элементов или же один элемент, который при делении на 7
+        # в остатке будет давать результат равный 'residual'
+        min_combination = get_min_combinations(pair_difference, residual)
         # Чтобы получить максимальное возможное число нужно вычесть минимальный элемент из pair_difference
         # То есть по факту здесь мы заменяем бОльшее число, которое мы взяли из пары ранее, на меньшее
         # Причем заменяем именно так, чтобы по итогу разность остатков была равна 0
-        max_sum -= min(pair_difference)
+        max_sum -= min_combination
         print(max_sum % 7, min_sum % 7)
     # Финальная проверка
     print(f'Финальная проверка. Разность остатков: {(max_sum % 7) - (min_sum % 7)}')
     print(f'Ответ: {max_sum}')
 
+# test(0)
 
 # lab1_task6()
 # lab2_task1()
@@ -322,5 +352,5 @@ def individual_task_1(file_number):
 # lab11_task12()
 # lab12_task5()
 # individual_task_1(0) # тестовый вариант (Пример задания). Ответ: 36
-# individual_task_1(1) # первый файл. Ответ: 109307
-# individual_task_1(2) # второй файл. Ответ: 410884352
+# individual_task_1(1) # первый файл. Ответ: 115110
+individual_task_1(2) # второй файл. Ответ: 410884352
