@@ -10,7 +10,7 @@ def sqlite_sample_table_command(name):
 
 def create_data_base_with_five_tables():
     try:
-        sqlite_connection = sqlite3.connect('../sqlite_python.db')
+        sqlite_connection = sqlite3.connect('sqlite_python.db')
         names = ['first_table', 'second_table', 'third_table', 'fourth_table', 'fifth_table']
         sqlite_create_tables = [sqlite_sample_table_command(name) for name in names]
         cursor = sqlite_connection.cursor()
@@ -31,7 +31,7 @@ def create_data_base_with_five_tables():
 
 def insert_data_to_table(table_name):
     try:
-        sqlite_connection = sqlite3.connect('../sqlite_python.db')
+        sqlite_connection = sqlite3.connect('sqlite_python.db')
         cursor = sqlite_connection.cursor()
         print("Подключен к SQLite")
         data = [
@@ -61,7 +61,7 @@ def insert_data_to_table(table_name):
 
 def actions_with_data_base(table_name):
     try:
-        sqlite_connection = sqlite3.connect('../sqlite_python.db')
+        sqlite_connection = sqlite3.connect('sqlite_python.db')
         cursor = sqlite_connection.cursor()
         print("Подключен к SQLite")
 
