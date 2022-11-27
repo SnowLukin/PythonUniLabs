@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import cgi
+import html
 import cgitb
 import sqlite3 as lite
 
@@ -51,12 +52,21 @@ areaList = []
 if create_check_flag == "flag":
     title = form.getfirst("new_title", "")
     body = form.getfirst("new_body", "")
+
+    title = html.escape(title)
+    body = html.escape(body)
+
     bd_handler.create_article(title, body)
 
 if edit_check_flag == "flag":
     edit_id = form.getfirst("edit_id", "")
     edit_title = form.getfirst("edit_title", "")
     edit_body = form.getfirst("edit_body", "")
+
+    edit_id = html.escape(edit_id)
+    edit_title = html.escape(edit_title)
+    edit_body = html.escape(edit_body)
+
     if edit_id.isnumeric():
         bd_handler.edit_article(int(edit_id), edit_title, edit_body)
 
