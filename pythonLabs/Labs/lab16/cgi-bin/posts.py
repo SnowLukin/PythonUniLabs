@@ -2,7 +2,7 @@
 import cgi
 import cgitb
 import sqlite3 as lite
-
+import html
 import bd_handler
 
 form = cgi.FieldStorage()
@@ -51,12 +51,21 @@ areaList = []
 if create_check_flag == "flag":
     title = form.getfirst("new_post_title", "")
     body = form.getfirst("new_post_body", "")
+
+    title = html.escape(title)
+    body = html.escape(body)
+
     bd_handler.create_post(title, body)
 
 if edit_check_flag == "flag":
     edit_post_id = form.getfirst("edit_post_id", "")
     edit_post_title = form.getfirst("edit_post_title", "")
     edit_post_body = form.getfirst("edit_post_body", "")
+
+    edit_post_id = html.escape(edit_post_id)
+    edit_post_title = html.escape(edit_post_title)
+    edit_post_body = html.escape(edit_post_body)
+
     if edit_post_id.isnumeric():
         bd_handler.edit_post(int(edit_post_id), edit_post_title, edit_post_body)
 

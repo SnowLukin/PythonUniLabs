@@ -2,7 +2,7 @@
 import cgi
 import cgitb
 import sqlite3 as lite
-
+import html
 import bd_handler
 
 form = cgi.FieldStorage()
@@ -51,12 +51,21 @@ areaList = []
 if create_check_flag == "flag":
     name = form.getfirst("new_name", "")
     surname = form.getfirst("new_surname", "")
+
+    name = html.escape(name)
+    surname = html.escape(surname)
+
     bd_handler.create_user(name, surname)
 
 if edit_check_flag == "flag":
     edit_id = form.getfirst("edit_id", "")
     edit_name = form.getfirst("edit_name", "")
     edit_surname = form.getfirst("edit_surname", "")
+
+    edit_id = html.escape(edit_id)
+    edit_name = html.escape(edit_name)
+    edit_surname = html.escape(edit_surname)
+
     if edit_id.isnumeric():
         bd_handler.edit_user(int(edit_id), edit_name, edit_surname)
 
