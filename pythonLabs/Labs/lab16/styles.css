@@ -1,0 +1,55 @@
+.header {
+    /*padding: 10px;*/
+    background: #558257;
+    font-size: 25px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.headerButton {
+    overflow: hidden;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    color: #fff;
+    padding: 0;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.row {
+    width: 100%;
+    text-align: left;
+    margin-left: 30px;
+}
+
+.block {
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    width: 100px;
+    display: inline-block;
+}
+
+.formStyle {
+    margin-top: 100px;
+}
+
+.customBodyWrapper {
+    height: 100%;
+    width: 100%;
+    background-color: darkslategray;
+}
+
+.customInput {
+    font-size: 20px;
+    background-color: #73A580;
+    color: white;
+    border-radius: 10px;
+    border: 0;
+    padding: 10px;
+}
