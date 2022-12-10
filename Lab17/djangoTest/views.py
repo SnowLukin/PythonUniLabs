@@ -1,25 +1,44 @@
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import Chefs, Posts, Articles, Ingredients, Recipes
-
+from .models import Chef, Post, Article, Ingredient, Recipe
+from django.urls import reverse
+from django.shortcuts import redirect
 
 def index(request):
-    chefsObj = Chefs.objects
+    chefsObj = Chef.objects
     context = {
         'chefsObj': chefsObj,
     }
-    return render(request, 'djangoTest/index.html', context)
+    return render(request, 'djangoTest/index.html', {})
 
 
 def chefs(request):
-    objs = Chefs.objects
+    objs = Chef.objects.order_by('-name')
     context = {
         'objs': objs,
     }
     return render(request, 'djangoTest/chefs.html', context)
 
 
+def add_chef(request):
+    objs = Chef.objects.order_by('-name')
+    # chef_id = len(objs)
+    name = request.POST['first']
+    surname = request.POST['last']
+    entity = Chef(name=name, surname=surname)
+    entity.save()
+    return redirect(reverse('djangoTest:chefs'))
+
+
+def delete_chef(request, entity_id):
+    entity = Chef.objects.get(id=entity_id)
+    entity.delete()
+    return redirect(reverse('djangoTest:chefs'))
+    # return HttpResponseRedirect(reverse('djangoTest/chefs'))
+
+
 def posts(request):
-    objs = Posts.objects
+    objs = list(Post.objects)
     context = {
         'objs': objs,
     }
@@ -27,7 +46,7 @@ def posts(request):
 
 
 def articles(request):
-    objs = Articles.objects
+    objs = list(Article.objects)
     context = {
         'objs': objs,
     }
@@ -35,7 +54,7 @@ def articles(request):
 
 
 def ingredients(request):
-    objs = Ingredients.objects
+    objs = list(Ingredient.objects)
     context = {
         'objs': objs,
     }
@@ -43,7 +62,7 @@ def ingredients(request):
 
 
 def recipes(request):
-    objs = Recipes.objects
+    objs = list(Recipe.objects)
     context = {
         'objs': objs,
     }

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Chefs(models.Model):
+class Chef(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
 
@@ -9,7 +9,7 @@ class Chefs(models.Model):
         return self.name
 
 
-class Posts(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=200)
     body = models.CharField(max_length=200)
 
@@ -17,7 +17,7 @@ class Posts(models.Model):
         return self.title
 
 
-class Ingredients(models.Model):
+class Ingredient(models.Model):
     name = models.CharField(max_length=200)
     price = models.IntegerField()
 
@@ -25,7 +25,7 @@ class Ingredients(models.Model):
         return self.name
 
 
-class Articles(models.Model):
+class Article(models.Model):
     title = models.CharField(max_length=200)
     body = models.CharField(max_length=200)
 
@@ -33,7 +33,7 @@ class Articles(models.Model):
         return self.title
 
 
-class Recipes(models.Model):
+class Recipe(models.Model):
     title = models.CharField(max_length=200)
     body = models.CharField(max_length=200)
     cost = models.IntegerField()

@@ -1,0 +1,140 @@
+/* Too lazy to do anything. Copy paste from lab16 */
+.formDiv {
+    display: block;
+    width: 400px;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: #3E363F;
+    margin-top: 25px;
+}
+.customInput {
+    padding: 10px;
+    width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    margin-bottom: 10px;
+}
+
+.customSubmit {
+    width: 100%;
+    background-color: dodgerblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.deleteSubmit {
+    width: 70px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    margin-top: 15px;
+    margin-bottom: 0;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.customSubmit:hover {
+  background-color: #45a049;
+}
+
+label,
+textarea {
+    font-size: .8rem;
+    letter-spacing: 1px;
+}
+textarea {
+    resize: none;
+    padding: 10px;
+    width: 100%;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+label {
+    color: white;
+    display: block;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: white;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+h4 {
+    font-size: .8rem;
+    letter-spacing: 1px;
+    color: lightgray;
+    margin-top: 0;
+    margin-bottom: 10px;
+
+    word-wrap: break-word;
+}
+
+body {
+    background-color: #3E363F;
+}
+
+.postDiv {
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    background-color: #3E363F;
+    display: block;
+    margin-left: 40px;
+    margin-right: auto;
+    margin-top: 25px;
+}
+
+.parentPostDiv {
+    width: 30%;
+    display: inline-block;
+    vertical-align: top;
+    horiz-align: center;
+}
+
+.parentFormDiv {
+    width: 33%;
+    display: inline-block;
+    vertical-align: top;
+    horiz-align: center;
+    margin-left: 20px;
+    margin-right: 0;
+}
+
+.header {
+    background: #3E363F;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h1 {
+    color: white;
+    margin-left: 50px;
+    margin-right: auto;
+}
+
+button {
+    color: white;
+    background-color: dodgerblue;
+    transition-duration: 0.4s;
+    border: 0;
+    border-radius: 10px;
+    display: inline-block;
+    margin-left: 50px;
+    margin-right: 1px;
+    font-size: 15px;
+    padding: 10px;
+}

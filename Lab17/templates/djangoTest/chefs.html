@@ -1,0 +1,39 @@
+{% extends "djangoTest/base.html" %}
+
+{% block content %}
+    <div class="header">
+        <h1>Chefs</h1>
+        <button class="headerButton" onclick="window.location.replace('http://localhost:8000/djangoTest/');">Go Back</button>
+    </div>
+    {% if objs %}
+        {% for chef in objs %}
+            <div class="parentPostDiv">
+                <div class="postDiv">
+                    <div style="display: flex; justify-content: space-around">
+                        <h2>{{ chef.name }}</h2>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <a class="deleteSubmit" href="delete_chef/{{ chef.id }}">Delete</a>
+                    </div>
+                    <h4>{{ chef.surname }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>"No chefs yet."</h1>
+    {% endif %}
+    <div class="parentFormDiv">
+        <div class="formDiv">
+            <h2>New Post</h2>
+            <form action="add_chef/" method=post>
+                {% csrf_token %}
+                <label for="inputID">Name:</label>
+                <input class="customInput" id="inputID" type="text" name="first">
+                <label for="inputID">Surname:</label>
+                <input class="customInput" id="inputID" type="text" name="last">
+                <input class="customSubmit" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+{% endblock %}

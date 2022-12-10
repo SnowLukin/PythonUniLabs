@@ -1,4 +1,30 @@
-<form action="{% url 'djangoTest:Chefs' %}" method="post">
+{% extends "djangoTest/base.html" %}
+
+{% block content %}
+
+<form action="{% url 'djangoTest:chefs' %}" method="post">
     {% csrf_token %}
-    <input type="submit" value="Chefs">
+    <input class="customInput" type="submit" value="Chefs">
 </form>
+
+<form action="{% url 'djangoTest:recipes' %}" method="post">
+    {% csrf_token %}
+    <input class="customInput" type="submit" value="Recipes">
+</form>
+
+<form action="{% url 'djangoTest:ingredients' %}" method="post">
+    {% csrf_token %}
+    <input class="customInput" type="submit" value="Ingredients">
+</form>
+
+<form action="{% url 'djangoTest:posts' %}" method="post">
+    {% csrf_token %}
+    <input class="customInput" type="submit" value="Posts">
+</form>
+
+<form action="{% url 'djangoTest:articles' %}" method="post">
+    {% csrf_token %}
+    <input class="customInput" type="submit" value="Articles">
+</form>
+
+{% endblock %}
