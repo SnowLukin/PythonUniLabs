@@ -51,4 +51,4 @@ for cafe_location in cafes_locations:
             popup="<b>" + cafe_name + " " + "{:.2f}".format(get_share(cafe_name, names)) + "%" + str(names.count(cafe_name)) + "</b>"
         ).add_to(m)
 m.save('cafes.html')
-print('Success')
+print('Finished')

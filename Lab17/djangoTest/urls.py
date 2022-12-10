@@ -3,5 +3,5 @@ from . import views
 
 app_name = 'djangoTest'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.chefs, name='Chefs'),
 ]
