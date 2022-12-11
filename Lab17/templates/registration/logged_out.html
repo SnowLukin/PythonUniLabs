@@ -1,0 +1,7 @@
+{% extends "djangoTest/base.html" %}
+
+{% block content %}
+    <p>Logged out!</p>
+    {% csrf_token %}
+    <a href="{% url 'login'%}">Click here to login again.</a>
+{% endblock %}

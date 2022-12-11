@@ -4,6 +4,8 @@ from .models import Chef, Post, Article, Ingredient, Recipe
 from django.urls import reverse
 from django.shortcuts import redirect
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def index(request):
     return render(request, 'djangoTest/index.html', {})
