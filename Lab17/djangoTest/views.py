@@ -182,6 +182,6 @@ def edit_recipe(request):
     entity = Recipe.objects.get(id=entity_id)
     entity.title = request.POST['edit_first']
     entity.body = request.POST['edit_second']
-    entity.price = int(request.POST['edit_third'])
+    entity.cost = request.POST['edit_third']
     entity.save()
     return redirect(reverse('djangoTest:recipes'))
