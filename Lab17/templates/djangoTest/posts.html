@@ -1,0 +1,55 @@
+{% extends "djangoTest/base.html" %}
+
+{% block content %}
+    <div class="header">
+        <h1>Posts</h1>
+        <button class="headerButton" onclick="window.location.replace('http://localhost:8000/djangoTest/');">Go Back</button>
+    </div>
+    {% if objs %}
+        {% for post in objs %}
+            <div class="parentPostDiv">
+                <div class="postDiv">
+                    <div style="display: flex; justify-content: space-around">
+                        <h2>{{ post.title }}</h2>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <a href="delete_post/{{ post.id }}" class="deleteSubmit">Delete</a>
+                    </div>
+                    <h4>{{ post.body }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>"No posts yet."</h1>
+    {% endif %}
+    <div class="parentFormDiv">
+        <div class="formDiv">
+            <h2>New Post</h2>
+            <form action="add_post/" method=post>
+                {% csrf_token %}
+                <label for="inputID">Title:</label>
+                <input class="customInput" type="text" name="first">
+                <label for="inputID">What's New:</label>
+                <textarea name="last" cols="40" rows="5"></textarea>
+                <input class="customSubmit" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+
+    <div class="parentFormDiv">
+        <div class="formDiv">
+            <h2>Edit Post</h2>
+            <form action="edit_post/" method=post>
+                {% csrf_token %}
+                <label for="inputID">Id:</label>
+                <input class="customInput" type="text" name="edit_id">
+                <label for="inputID">New Title:</label>
+                <input class="customInput" type="text" name="edit_first">
+                <label for="inputID">New Description:</label>
+                <textarea name="edit_last" cols="40" rows="5"></textarea>
+                <input class="customSubmit" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+{% endblock %}

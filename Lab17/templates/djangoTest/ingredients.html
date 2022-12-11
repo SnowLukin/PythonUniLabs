@@ -1,0 +1,55 @@
+{% extends "djangoTest/base.html" %}
+
+{% block content %}
+    <div class="header">
+        <h1>Ingredients</h1>
+        <button class="headerButton" onclick="window.location.replace('http://localhost:8000/djangoTest/');">Go Back</button>
+    </div>
+    {% if objs %}
+        {% for entity in objs %}
+            <div class="parentPostDiv">
+                <div class="postDiv">
+                    <div style="display: flex; justify-content: space-around">
+                        <h2>{{ entity.name }}</h2>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <div></div><div></div><div></div><div></div>
+                        <a href="delete_ingredient/{{ entity.id }}" class="deleteSubmit">Delete</a>
+                    </div>
+                    <h4>{{ entity.cost }}</h4>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1>"No ingredients yet."</h1>
+    {% endif %}
+    <div class="parentFormDiv">
+        <div class="formDiv">
+            <h2>New Ingredient</h2>
+            <form action="add_ingredient/" method=post>
+                {% csrf_token %}
+                <label for="inputID">Name:</label>
+                <input class="customInput" type="text" name="first">
+                <label for="inputID">Cost:</label>
+                <input class="customInput" type="text" name="last">
+                <input class="customSubmit" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+
+    <div class="parentFormDiv">
+        <div class="formDiv">
+            <h2>Edit Ingredient</h2>
+            <form action="edit_ingredient/" method=post>
+                {% csrf_token %}
+                <label for="inputID">Id:</label>
+                <input class="customInput" type="text" name="edit_id">
+                <label for="inputID">New Name:</label>
+                <input class="customInput" type="text" name="edit_first">
+                <label for="inputID">New Cost:</label>
+                <input class="customInput" type="text" name="edit_last">
+                <input class="customSubmit" type="submit" value="Save">
+            </form>
+        </div>
+    </div>
+{% endblock %}
