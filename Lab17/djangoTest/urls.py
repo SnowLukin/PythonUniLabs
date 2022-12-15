@@ -30,4 +30,6 @@ urlpatterns = [
     path('delete_recipe/<int:entity_id>', views.delete_recipe, name='delete_recipe'),
     path('add_recipe/', views.add_recipe, name='add_recipe'),
     path('edit_recipe/', views.edit_recipe, name='edit_recipe'),
+
+    path("register", views.register_request, name="register")
 ]
