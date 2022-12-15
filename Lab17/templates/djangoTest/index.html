@@ -27,4 +27,11 @@
     <input class="customInput" type="submit" value="Articles">
 </form>
 
+{% if user.is_authenticated %}
+    <form action="{% url 'djangoTest:logout_req' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+{% endif %}
+
 {% endblock %}

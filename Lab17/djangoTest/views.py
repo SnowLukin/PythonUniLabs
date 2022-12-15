@@ -6,16 +6,24 @@ from django.shortcuts import redirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import login, authenticate
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import logout
 
 
 def index(request):
-    return render(request, 'djangoTest/index.html', {})
+    user = request.user
+    return render(request, 'djangoTest/index.html', {'user': user})
 
 
 def chefs(request):
+    user = request.user
+    print(user.is_authenticated)
     objs = Chef.objects.order_by('-name')
     context = {
         'objs': objs,
+        'user': user,
     }
     return render(request, 'djangoTest/chefs.html', context)
 
@@ -26,7 +34,7 @@ def add_chef(request):
     name = request.POST['first']
     surname = request.POST['last']
     entity = Chef(name=name, surname=surname)
-    entity.id = chef_id     # to be able to edit entity in future
+    entity.id = chef_id  # to be able to edit entity in future
     entity.save()
     print(entity.id)
     return redirect(reverse('djangoTest:chefs'))
@@ -62,7 +70,7 @@ def add_post(request):
     title = request.POST['first']
     body = request.POST['last']
     entity = Post(title=title, body=body)
-    entity.id = entity_id     # to be able to edit entity in future
+    entity.id = entity_id  # to be able to edit entity in future
     entity.save()
     return redirect(reverse('djangoTest:posts'))
 
@@ -97,7 +105,7 @@ def add_article(request):
     title = request.POST['first']
     body = request.POST['last']
     entity = Article(title=title, body=body)
-    entity.id = entity_id     # to be able to edit entity in future
+    entity.id = entity_id  # to be able to edit entity in future
     entity.save()
     return redirect(reverse('djangoTest:articles'))
 
@@ -132,7 +140,7 @@ def add_ingredient(request):
     name = request.POST['first']
     cost = int(request.POST['last'])
     entity = Ingredient(name=name, cost=cost)
-    entity.id = entity_id     # to be able to edit entity in future
+    entity.id = entity_id  # to be able to edit entity in future
     entity.save()
     return redirect(reverse('djangoTest:ingredients'))
 
@@ -168,7 +176,7 @@ def add_recipe(request):
     body = request.POST['second']
     cost = request.POST['third']
     entity = Recipe(title=title, body=body, cost=cost)
-    entity.id = entity_id     # to be able to edit entity in future
+    entity.id = entity_id  # to be able to edit entity in future
     entity.save()
     return redirect(reverse('djangoTest:recipes'))
 
@@ -190,7 +198,12 @@ def edit_recipe(request):
     return redirect(reverse('djangoTest:recipes'))
 
 
-from django.shortcuts import  render, redirect
+def logout_req(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect(reverse("djangoTest:login"))
+
+from django.shortcuts import render, redirect
 from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
@@ -202,8 +215,27 @@ def register_request(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success(request, "Registration successful." )
+            messages.success(request, "Registration successful.")
             return redirect("djangoTest:index")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="djangoTest/reg/register.html", context={"register_form": form})
+
+
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect("djangoTest:index")
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request=request, template_name="djangoTest/reg/login.html", context={"login_form": form})

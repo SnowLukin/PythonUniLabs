@@ -5,51 +5,53 @@
         <h1>Chefs</h1>
         <button class="headerButton" onclick="window.location.replace('http://localhost:8000/djangoTest/');">Go Back</button>
     </div>
-    {% if objs %}
-        {% for chef in objs %}
-            <div class="parentPostDiv">
-                <div class="postDiv">
-                    <div style="display: flex; justify-content: space-around">
-                        <h2>{{ chef.name }}</h2>
-                        <div></div><div></div><div></div><div></div>
-                        <div></div><div></div><div></div><div></div>
-                        <div></div><div></div><div></div><div></div>
-                        <a href="delete_chef/{{ chef.id }}" class="deleteSubmit">Delete</a>
+    {% if user.is_authenticated %}
+        {% if objs %}
+            {% for chef in objs %}
+                <div class="parentPostDiv">
+                    <div class="postDiv">
+                        <div style="display: flex; justify-content: space-around">
+                            <h2>{{ chef.name }}</h2>
+                            <div></div><div></div><div></div><div></div>
+                            <div></div><div></div><div></div><div></div>
+                            <div></div><div></div><div></div><div></div>
+                            <a href="delete_chef/{{ chef.id }}" class="deleteSubmit">Delete</a>
+                        </div>
+                        <h4>{{ chef.surname }}</h4>
                     </div>
-                    <h4>{{ chef.surname }}</h4>
                 </div>
+            {% endfor %}
+        {% else %}
+            <h1>"No chefs yet."</h1>
+        {% endif %}
+        <div class="parentFormDiv">
+            <div class="formDiv">
+                <h2>New Chef</h2>
+                <form action="add_chef/" method=post>
+                    {% csrf_token %}
+                    <label for="inputID">Name:</label>
+                    <input class="customInput" type="text" name="first">
+                    <label for="inputID">Surname:</label>
+                    <input class="customInput" type="text" name="last">
+                    <input class="customSubmit" type="submit" value="Save">
+                </form>
             </div>
-        {% endfor %}
-    {% else %}
-        <h1>"No chefs yet."</h1>
-    {% endif %}
-    <div class="parentFormDiv">
-        <div class="formDiv">
-            <h2>New Chef</h2>
-            <form action="add_chef/" method=post>
-                {% csrf_token %}
-                <label for="inputID">Name:</label>
-                <input class="customInput" type="text" name="first">
-                <label for="inputID">Surname:</label>
-                <input class="customInput" type="text" name="last">
-                <input class="customSubmit" type="submit" value="Save">
-            </form>
         </div>
-    </div>
 
-    <div class="parentFormDiv">
-        <div class="formDiv">
-            <h2>Edit Chef</h2>
-            <form action="edit_chef/" method=post>
-                {% csrf_token %}
-                <label for="inputID">Old name:</label>
-                <input class="customInput" type="text" name="edit_id">
-                <label for="inputID">New Name:</label>
-                <input class="customInput" type="text" name="edit_first">
-                <label for="inputID">New Surname:</label>
-                <input class="customInput" type="text" name="edit_last">
-                <input class="customSubmit" type="submit" value="Save">
-            </form>
+        <div class="parentFormDiv">
+            <div class="formDiv">
+                <h2>Edit Chef</h2>
+                <form action="edit_chef/" method=post>
+                    {% csrf_token %}
+                    <label for="inputID">Old name:</label>
+                    <input class="customInput" type="text" name="edit_id">
+                    <label for="inputID">New Name:</label>
+                    <input class="customInput" type="text" name="edit_first">
+                    <label for="inputID">New Surname:</label>
+                    <input class="customInput" type="text" name="edit_last">
+                    <input class="customSubmit" type="submit" value="Save">
+                </form>
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
